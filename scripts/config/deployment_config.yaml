@@ -1,0 +1,15 @@
+aws_region: us-east-1
+auto_scaling_group: zdt-app-asg-blue
+
+desired_capacity: 3  # Set the desired capacity
+min_size: 1  # Set the minimum number of instances
+max_size: 4  # Set the maximum number of instances
+
+# ami_id: ami-0735bf939bf00a01a # v0.0.1
+ami_id: ami-01bd8ab525beafb60 # v0.0.2
+
+instance_refresh:
+  min_healthy_percentage: 30
+  max_healthy_percentage: 100
+  instance_warmup: 10
+  skip_matching: true
