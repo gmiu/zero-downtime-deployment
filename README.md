@@ -179,7 +179,7 @@ Because we kept the old instances in standby, we can easily and rapidly reintrod
 ## Implemented parts
 I implemented a rudimentary scenario with only one auto scaling group. No blue/green deployment or checkpoints used. You can find the implementation inside the deployment module. At the end, I pasted the logs of a failed run, due to an instance refresh already in progress ()
 
-Lack of testing: unfortunately I did not have time to implement testing for the helper functions. I will probably update the repo with tests over the following days.
+Lack of testing: unfortunately I did not have time to implement testing for the helper functions. I will probably update the repo with tests over the following days. I will use pytest as testing framework and moto to mock the AWS resources and calls.
 
 ## Outro
 
