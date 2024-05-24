@@ -1,0 +1,5 @@
+boto3==1.34.111
+PyYAML==6.0.1
+requests==2.32.2
+tenacity==8.3.0
+-e git+ssh://git@github.com/gmiu/zero-downtime-deployment.git@8339899f9ae408233dc395a8f02ae5ee76e83cb5#egg=my_project
