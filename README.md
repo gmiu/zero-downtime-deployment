@@ -139,21 +139,6 @@ Now, let's consider everything is ok after running the synthetics. Here is what'
 - put the active ASG instances into standby; after this step, only the new version is serving traffic
 
 ### Monitor and validate
-
-    # automatically run some monitoring and validations for the indicated time
-    # at any time during the AUTO_ROLLBACK_TIME_WINDOW this can fail and initiate the rollback
-    validation_result = monitor_and_validate(AUTO_ROLLBACK_TIME_WINDOW)
-
-    if validation_result == PASSED:
-        # remove the active asg from the main target group
-        detach_asg_from_target_group(ACTIVE_ASG, MAIN_TG)
-        detach_asg_from_target_group(STANDBY_ASG, synthetic_asg)
-        scale_asg_to_zero(ACTIVE_ASG)
-    else: # validation_result == FAILED
-        # start auto rollback
-        put_asg_instances_in_service(ACTIVE_ASG)
-        detach_asg_from_target_group(STANDBY_ASG, MAIN_TG)
-
 So, we are at the point when only the new version is serving traffic. We could just terminate the instances running the old version the scaling the active ASG to zero. Instead, we define a time period (AUTO_ROLLBACK_TIME_WINDOW) during which we monitor and validate that everything is ok. If any issue comes up during this time, the rollback is initiated automatically.
 
 The monitoring and the validation step is automated in this case. This could mean running whatever test you have or subscribe the various alerting queues and if any critical alerts pop up, the deployment gets invalidated. Sky is the limit here!
