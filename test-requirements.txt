@@ -1,0 +1,4 @@
+-r requirements.txt
+pytest==8.2.1
+pytest-cov==5.0.0
+moto[all]==5.0.8
