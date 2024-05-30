@@ -162,9 +162,41 @@ Because we kept the old instances in standby, we can easily and rapidly reintrod
 *Note: The use of active and standby after the deployment might be confusing, because the green deployment now becomes the active one and the blue becomes the standby. But I wanted to keep the exact terminology the pseudocode is using*
 
 ## Implemented parts
-I implemented a rudimentary scenario with only one auto scaling group. No blue/green deployment or checkpoints used. You can find the implementation inside the deployment module. At the end, I pasted the logs of a failed run, due to an instance refresh already in progress ()
+I implemented a rudimentary scenario with only one auto scaling group. No blue/green deployment or checkpoints used. You can find the implementation inside the deployment module. At the end, I pasted the logs of a failed run, due to an instance refresh already in progress.
+I also implemented some tests for some of the helper methods using PyTest and Moto. See the testing  section below for more details.
 
-Lack of testing: unfortunately I did not have time to implement testing for the helper functions. I will probably update the repo with tests over the following days. I will use pytest as testing framework and moto to mock the AWS resources and calls.
+## Testing
+Tests were implemented for some of the methods offered by AWSHelper. In order to run the tests you first need to create a new venv (e.g. `venv-test`) and install the `test-requirements.txt` packages.
+
+All of the implemented tests are using mocked AWS resources (autoscaling group, launch template, AMIs).
+
+Below you can see the output of a pytest run with coverage analysis:
+```
+❯ pytest --cov=./ tests
+================================================================================== test session starts ===================================================================================
+platform darwin -- Python 3.12.2, pytest-8.2.1, pluggy-1.5.0
+rootdir: /Users/miu/Work/gmiu/zero-downtime-deployment
+configfile: pytest.ini
+plugins: cov-5.0.0
+collected 6 items
+
+tests/test_aws_helpers.py ......                                                                                                                                                   [100%]
+
+---------- coverage: platform darwin, python 3.12.2-final-0 ----------
+Name                        Stmts   Miss  Cover
+-----------------------------------------------
+deployment/__init__.py          0      0   100%
+deployment/aws_helpers.py     101     47    53%
+deployment/deployment.py       41     41     0%
+setup.py                        2      2     0%
+tests/__init__.py               0      0   100%
+tests/test_aws_helpers.py      76      0   100%
+-----------------------------------------------
+TOTAL                         220     90    59%
+
+
+=================================================================================== 6 passed in 2.84s ====================================================================================
+```
 
 ## Outro
 
